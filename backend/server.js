@@ -10,7 +10,7 @@ const fastify = Fastify({
   logger: true
 })
 fastify.register(dbConnector) 
-fastify.register(employeeRoute)
+
 fastify.register(require('@fastify/swagger'),{  
   routePrefix: '/documentation',
   exposeRoute: true,
@@ -30,6 +30,7 @@ fastify.register(require('@fastify/swagger'),{
       produces: ['application/json']
   }
 })
+fastify.register(employeeRoute)
 
 fastify.ready(() => {
   console.log('fastify server is ready')

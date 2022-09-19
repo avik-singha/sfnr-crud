@@ -1,11 +1,33 @@
 const employeeController = require('../controller');
+
+
+const getAllEmployeeOpts = {
+  schema : {
+      response : {
+        200 :{
+          type : "array",
+          items : {
+            type : "object",
+            properties : {
+              employeeId : {type : 'string'},
+              employeeName : {type : 'string'},
+              employeeOrg : {type : 'string'},
+              employeeLoc : {type : 'string'},
+            }
+          }
+        }
+      }
+  }
+}
+
+
 /**
  * Encapsulates the routes
  * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
  * @param {Object} options plugin options, refer to https://www.fastify.io/docs/latest/Reference/Plugins/#plugin-options
  */
-async function routes(fastify, options) {
-  fastify.get('/employeezone/get-all-employees', function (req, reply) {
+async function routes(fastify, options,done) {
+  fastify.get('/employeezone/get-all-employees',getAllEmployeeOpts, function (req, reply) {
     fastify.mysql.query(
       'SELECT * FROM employees',
       function onResult(err, result) {
@@ -42,6 +64,8 @@ async function routes(fastify, options) {
       }
     )
   })
+
+  done()
 }
 
 module.exports = routes

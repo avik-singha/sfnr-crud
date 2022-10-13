@@ -1,4 +1,4 @@
-const employeeController = require('../controller');
+// const employeeController = require('../controller');
 
 
 const getAllEmployeeOpts = {
